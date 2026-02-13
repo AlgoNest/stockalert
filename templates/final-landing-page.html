@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StockAlert - Intelligent Inventory Management</title>
+    <!-- Bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #00d1b2;
+            --primary-light: #e6fffa;
+            --dark-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-light: #64748b;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #f8fafc;
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 0;
+        }
+
+        .navbar-item,
+        .navbar-link {
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .navbar-item:hover,
+        .navbar-link:hover {
+            background-color: transparent !important;
+            color: var(--primary) !important;
+        }
+
+        .navbar-brand .title {
+            color: var(--text-main);
+            letter-spacing: -1px;
+        }
+
+        .navbar-brand .title span {
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            position: relative;
+            padding: 8rem 0 6rem;
+            background: radial-gradient(circle at top right, rgba(0, 209, 178, 0.05), transparent 40%),
+                radial-gradient(circle at bottom left, rgba(99, 102, 241, 0.05), transparent 40%);
+            overflow: hidden;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: #0f172a;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+        }
+
+        .floating-mockup {
+            border-radius: 1rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            background: #ffffff;
+            transform: perspective(1000px) rotateY(-5deg) rotateX(2deg);
+            transition: transform 0.5s ease;
+        }
+
+        .floating-mockup:hover {
+            transform: perspective(1000px) rotateY(0) rotateX(0);
+        }
+
+        .floating-mockup iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+        }
+
+        /* Feature Cards */
+        .feature-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            height: 100%;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary);
+        }
+
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            background: var(--primary-light);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Steps Section */
+        .step-section {
+            padding: 6rem 0;
+            position: relative;
+            background: #ffffff;
+        }
+
+        .step-number {
+            display: inline-block;
+            background: var(--primary-light);
+            color: var(--primary);
+            font-weight: 700;
+            padding: 0.25rem 1rem;
+            border-radius: 2rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .mockup-frame {
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-color);
+            background: #ffffff;
+        }
+
+        .mockup-frame iframe {
+            width: 100%;
+            height: 500px;
+            border: none;
+        }
+
+        /* Mobile Showcase */
+        .mobile-showcase {
+            background: #f8fafc;
+            padding: 6rem 0;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .phone-frame {
+            border: 4px solid #cbd5e1;
+            border-radius: 3rem;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.2);
+            background: #ffffff;
+            max-width: 380px;
+            margin: 0 auto;
+        }
+
+        .phone-frame iframe {
+            width: 100%;
+            height: 750px;
+            border: none;
+        }
+
+        /* CTA */
+        .cta-section {
+            padding: 6rem 0;
+            background: #ffffff;
+        }
+
+        .cta-card {
+            background: var(--primary);
+            border-radius: 2rem;
+            padding: 4rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 25px -5px rgba(0, 209, 178, 0.3);
+        }
+
+        .cta-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.2;
+        }
+
+        .footer {
+            background-color: #f8fafc;
+            padding: 4rem 1.5rem;
+            color: var(--text-light);
+            border-top: 1px solid var(--border-color);
+        }
+
+        footer a {
+            color: #64748b;
+            transition: color 0.2s;
+        }
+
+        footer a:hover {
+            color: var(--primary);
+        }
+    </style>
+    <style>
+        /* Pricing Section */
+        .pricing-section {
+            padding: 6rem 0;
+            background: #ffffff;
+        }
+
+        .pricing-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 1.5rem;
+            padding: 3rem 2rem;
+            height: 100%;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary);
+        }
+
+        .pricing-card.is-popular {
+            border: 2px solid var(--primary);
+            box-shadow: 0 10px 15px -3px rgba(0, 209, 178, 0.1);
+        }
+
+        .pricing-price {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-price span {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--text-light);
+        }
+
+        .pricing-features {
+            margin: 2rem 0;
+            text-align: left;
+        }
+
+        .pricing-features li {
+            margin-bottom: 1rem;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+        }
+
+        .pricing-features i {
+            color: var(--primary);
+            margin-right: 0.75rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar is-fixed-top">
+        <div class="container">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="#">
+                    <h1 class="title is-4"><span>📦</span> STOCKALERT</h1>
+                </a>
+                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+
+            <div id="navbarMenu" class="navbar-menu">
+                <div class="navbar-end">
+                    <a href="#features" class="navbar-item">Benefits</a>
+                    <a href="#how-it-works" class="navbar-item">How It Works</a>
+                    <a href="#mobile" class="navbar-item">Mobile App</a>
+                    <div class="navbar-item">
+                        <div class="buttons">
+                            <a class="button is-primary is-rounded has-text-weight-bold" href="/waitlist">
+                                <strong>Count Me In?</strong>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="columns is-vcentered">
+                <div class="column is-5" data-aos="fade-right">
+                    <h1 class="hero-title">
+                        Inventory Control<br>
+                        <span style="color: var(--primary);">Made Simple.</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        Stop manual counting and start growing. Get real-time alerts automatically sent to your phone
+                        when stocks run low.
+                    </p>
+                    <div class="buttons">
+                        <a href="/waitlist" class="button is-primary is-rounded is-medium has-text-weight-bold">
+                            Get Started Free
+                        </a>
+                        <a href="#how-it-works" class="button is-dark is-outlined is-rounded is-medium">
+                            <span>Watch Demo</span>
+                            <span class="icon is-small">
+                                <i class="fas fa-play"></i>
+                            </span>
+                        </a>
+                    </div>
+                    <div class="mt-6 is-flex is-align-items-center">
+                        <div class="is-flex mr-4">
+                            <span class="icon has-text-warning"><i class="fas fa-star"></i></span>
+                            <span class="icon has-text-warning"><i class="fas fa-star"></i></span>
+                            <span class="icon has-text-warning"><i class="fas fa-star"></i></span>
+                            <span class="icon has-text-warning"><i class="fas fa-star"></i></span>
+                            <span class="icon has-text-warning"><i class="fas fa-star"></i></span>
+                        </div>
+                        <p class="is-size-7 has-text-grey">Trusted by 500+ small businesses</p>
+                    </div>
+                </div>
+                <div class="column is-7" data-aos="fade-left" data-aos-delay="200">
+                    <div class="floating-mockup">
+                        <div
+                            style="background: #ffffff; padding: 10px 20px; display: flex; gap: 6px; border-bottom: 1px solid #f1f5f9;">
+                            <div style="width: 10px; height: 10px; border-radius: 50%; background: #ef4444;"></div>
+                            <div style="width: 10px; height: 10px; border-radius: 50%; background: #fbbf24;"></div>
+                            <div style="width: 10px; height: 10px; border-radius: 50%; background: #10b981;"></div>
+                        </div>
+                        <iframe src="{{ url_for('mockup', filename='new-mockup-1-dashboard.html') }}"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="section" id="features">
+        <div class="container">
+            <div class="has-text-centered mb-6" data-aos="fade-up">
+                <span class="has-text-primary has-text-weight-bold is-uppercase is-size-7"
+                    style="letter-spacing: 2px;">Why Choose Us</span>
+                <h2 class="title is-2 has-text-black mt-2">Maximize Your Profits</h2>
+                <p class="subtitle is-5 has-text-grey-light">Eliminate the guesswork and stop losing money to stockouts.
+                </p>
+            </div>
+
+            <div class="columns is-variable is-6">
+                <div class="column is-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-card">
+                        <div class="icon-box">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3 class="title is-4 has-text-black">Save 10+ Hours/Week</h3>
+                        <p class="has-text-grey">Automate manual counting. Our system tracks every sale and update
+                            instantly.</p>
+                    </div>
+                </div>
+                <div class="column is-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-card">
+                        <div class="icon-box">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <h3 class="title is-4 has-text-black">Never Miss a Sale</h3>
+                        <p class="has-text-grey">Get instant alerts via WhatsApp or SMS before you run out of popular
+                            items.</p>
+                    </div>
+                </div>
+                <div class="column is-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-card">
+                        <div class="icon-box">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3 class="title is-4 has-text-black">Data-Driven Growth</h3>
+                        <p class="has-text-grey">Understand what sells and when. Make smarter purchasing decisions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="step-section" id="how-it-works">
+        <div class="container">
+            <!-- Step 1 -->
+            <div class="columns is-vcentered mb-6">
+                <div class="column is-6" data-aos="fade-right">
+                    <span class="step-number">Step 01</span>
+                    <h2 class="title is-2 has-text-black">Add Your Products</h2>
+                    <p class="subtitle is-5 has-text-grey-light mb-4">
+                        Easily import or add your inventory. Set your minimum stock thresholds for each item in just a
+                        few clicks.
+                    </p>
+                    <ul class="has-text-grey">
+                        <li class="mb-2"><i class="fas fa-check has-text-primary mr-2"></i> Bulk upload via CSV</li>
+                        <li class="mb-2"><i class="fas fa-check has-text-primary mr-2"></i> Visual stock indicators</li>
+                        <li class="mb-2"><i class="fas fa-check has-text-primary mr-2"></i> Categorize items easily</li>
+                    </ul>
+                </div>
+                <div class="column is-6" data-aos="fade-left">
+                    <div class="mockup-frame">
+                        <iframe src="{{ url_for('mockup', filename='new-mockup-1-dashboard.html') }}"></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="columns is-vcentered reverse-columns-mobile mb-6">
+                <div class="column is-6" data-aos="fade-right">
+                    <div class="mockup-frame">
+                        <iframe src="{{ url_for('mockup', filename='new-mockup-2-settings.html') }}"></iframe>
+                    </div>
+                </div>
+                <div class="column is-6 pl-6" data-aos="fade-left">
+                    <span class="step-number">Step 02</span>
+                    <h2 class="title is-2 has-text-black">Configure Alerts</h2>
+                    <p class="subtitle is-5 has-text-grey-light mb-4">
+                        Decide how and when you want to be notified. We support email, SMS, and WhatsApp alerts.
+                    </p>
+                    <ul class="has-text-grey">
+                        <li class="mb-2"><i class="fas fa-check has-text-primary mr-2"></i> Custom alert schedules</li>
+                        <li class="mb-2"><i class="fas fa-check has-text-primary mr-2"></i> Priority notifications</li>
+                        <li class="mb-2"><i class="fas fa-check has-text-primary mr-2"></i> Multi-channel suppport</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mobile App Showcase -->
+    <section class="mobile-showcase" id="mobile">
+        <div class="container has-text-centered">
+            <div data-aos="zoom-in">
+                <h2 class="title is-2 has-text-black">Your Business in Your Pocket</h2>
+                <p class="subtitle is-5 has-text-grey-light mb-6">Monitor stock levels from anywhere in the world.</p>
+
+                <div class="phone-frame">
+                    <iframe src="{{ url_for('mockup', filename='new-mockup-3-phone.html') }}"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="section pricing-section" id="pricing">
+        <div class="container">
+            <div class="has-text-centered mb-6" data-aos="fade-up">
+                <span class="has-text-primary has-text-weight-bold is-uppercase is-size-7"
+                    style="letter-spacing: 2px;">Simple Pricing</span>
+                <h2 class="title is-2 has-text-black mt-2">Choose Your Plan</h2>
+                <p class="subtitle is-5 has-text-grey-light">Transparent pricing. No hidden fees.</p>
+            </div>
+
+            <div class="columns is-centered is-variable is-8">
+                <!-- Basic Plan -->
+                <div class="column is-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="pricing-card">
+                        <h3 class="title is-4 has-text-black mb-2">Basic</h3>
+                        <div class="pricing-price">$9.99<span>/mo</span></div>
+                        <ul class="pricing-features">
+                            <li><i class="fas fa-check"></i> 3 Alerts / Day</li>
+                            <li><i class="fas fa-check"></i> Up to 1 Phone Number</li>
+                            <li><i class="fas fa-check"></i> 24/7 Customer Support</li>
+                        </ul>
+                        <a href="/waitlist?plan=basic"
+                            class="button is-primary is-outlined is-fullwidth is-rounded has-text-weight-bold">
+                            Choose Basic
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Pro Plan -->
+                <div class="column is-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="pricing-card is-popular">
+                        <div class="is-absolute"
+                            style="position: absolute; top: 0; right: 0; background: var(--primary); color: white; padding: 0.25rem 1rem; border-bottom-left-radius: 1rem; font-size: 0.8rem; font-weight: bold;">
+                            POPULAR</div>
+                        <h3 class="title is-4 has-text-black mb-2">Pro</h3>
+                        <div class="pricing-price">$19.99<span>/mo</span></div>
+                        <ul class="pricing-features">
+                            <li><i class="fas fa-check"></i> 20 Alerts / Day</li>
+                            <li><i class="fas fa-check"></i> Up to 10 Phone Numbers</li>
+                            <li><i class="fas fa-check"></i> 24/7 Customer Support</li>
+                        </ul>
+                        <a href="/waitlist?plan=pro"
+                            class="button is-primary is-fullwidth is-rounded has-text-weight-bold shadow-lg">
+                            Choose Pro
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-card" data-aos="flip-up">
+                <h2 class="title is-1 has-text-white mb-4">Ready to Automate?</h2>
+                <p class="subtitle is-4 has-text-white mb-6" style="opacity: 0.9;">
+                    Join thousands of businesses saving time and money with StockAlert.
+                </p>
+                <a href="/waitlist" class="button is-white is-large is-rounded has-text-primary has-text-weight-bold"
+                    style="border: none;">
+                    Start Your Free Trial
+                </a>
+                <p class="is-size-7 has-text-white mt-4 opacity-70">No credit card required • Cancel anytime</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-4">
+                    <h4 class="title is-5 has-text-black">📦 STOCKALERT</h4>
+                    <p class="is-size-6">
+                        Intelligent inventory management for modern businesses. Stop losing sales today.
+                    </p>
+                </div>
+                <div class="column is-2 is-offset-2">
+                    <h5 class="has-text-black has-text-weight-bold mb-4">Product</h5>
+                    <ul>
+                        <li class="mb-2"><a href="#" class="has-text-grey">Features</a></li>
+                        <li class="mb-2"><a href="#pricing" class="has-text-grey">Pricing</a></li>
+                        <li class="mb-2"><a href="#" class="has-text-grey">Mobile App</a></li>
+                    </ul>
+                </div>
+                <div class="column is-2">
+                    <h5 class="has-text-black has-text-weight-bold mb-4">Company</h5>
+                    <ul>
+                        <li class="mb-2"><a href="#" class="has-text-grey">About</a></li>
+                        <li class="mb-2"><a href="#" class="has-text-grey">Blog</a></li>
+                        <li class="mb-2"><a href="#" class="has-text-grey">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="column is-2">
+                    <h5 class="has-text-black has-text-weight-bold mb-4">Legal</h5>
+                    <ul>
+                        <li class="mb-2"><a href="#" class="has-text-grey">Privacy</a></li>
+                        <li class="mb-2"><a href="#" class="has-text-grey">Terms</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="content has-text-centered mt-6 pt-6" style="border-top: 1px solid #e2e8f0;">
+                <p>
+                    &copy; 2026 StockAlert. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AOS Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+
+        // Mobile Menu Toggle
+        document.addEventListener('DOMContentLoaded', () => {
+            const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+            if ($navbarBurgers.length > 0) {
+                $navbarBurgers.forEach(el => {
+                    el.addEventListener('click', () => {
+                        const target = el.dataset.target;
+                        const $target = document.getElementById(target);
+                        el.classList.toggle('is-active');
+                        $target.classList.toggle('is-active');
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
