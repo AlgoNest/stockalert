@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join the Waitlist - StockAlert</title>
+    <!-- Bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #00d1b2;
+            --primary-light: #e6fffa;
+            --dark-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-light: #64748b;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #f8fafc;
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at top right, rgba(0, 209, 178, 0.05), transparent 40%),
+                radial-gradient(circle at bottom left, rgba(99, 102, 241, 0.05), transparent 40%);
+        }
+
+        .waitlist-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 2rem;
+            padding: 3rem;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            margin: 2rem;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .input,
+        .textarea,
+        .select select {
+            border-radius: 1rem;
+            padding: 1.5rem 1rem;
+            border-color: #e2e8f0;
+            box-shadow: none;
+            font-family: 'Outfit', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .textarea {
+            padding: 1rem;
+            min-height: 120px;
+        }
+
+        .input:focus,
+        .textarea:focus,
+        .select select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px var(--primary-light);
+        }
+
+        .range-slider-container {
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        input[type=range] {
+            width: 100%;
+            margin: 10px 0;
+            background-color: transparent;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        input[type=range]:focus {
+            outline: none;
+        }
+
+        input[type=range]::-webkit-slider-runnable-track {
+            background: #e2e8f0;
+            border: 0;
+            border-radius: 25px;
+            width: 100%;
+            height: 6px;
+            cursor: pointer;
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            margin-top: -7px;
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            cursor: pointer;
+            -webkit-appearance: none;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.1s;
+        }
+
+        input[type=range]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        .slider-output {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .commitment-option {
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            padding: 1rem 1.25rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .commitment-option:hover {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .commitment-option input[type=checkbox] {
+            accent-color: var(--primary);
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+
+        .commitment-option .option-text {
+            flex: 1;
+        }
+
+        .commitment-option .option-text strong {
+            display: block;
+            color: var(--text-main);
+            font-size: 0.95rem;
+        }
+
+        .commitment-option .option-text span {
+            color: var(--text-light);
+            font-size: 0.8rem;
+        }
+
+        .submit-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 1rem;
+            width: 100%;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 15px -3px rgba(0, 209, 178, 0.3);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 25px -5px rgba(0, 209, 178, 0.4);
+        }
+
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        .section-divider {
+            border: none;
+            border-top: 1px solid var(--border-color);
+            margin: 1.5rem 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="waitlist-card" data-aos="zoom-in">
+        <!-- Form Content -->
+        <div id="waitlistForm">
+            <div class="has-text-centered mb-6">
+                <span class="icon is-large has-text-primary mb-3">
+                    <i class="fas fa-rocket fa-2x"></i>
+                </span>
+                <h1 class="title is-2 has-text-black">You're Early!</h1>
+                <p class="subtitle is-6 has-text-grey">
+                    We're currently in private beta. Join the waitlist to secure your spot and help shape the future of
+                    StockAlert.
+                </p>
+            </div>
+
+            <form onsubmit="submitForm(event)">
+                <!-- Name + Email -->
+                <div class="columns is-mobile mb-4">
+                    <div class="column">
+                        <label class="form-label">Your Name</label>
+                        <div class="control has-icons-left">
+                            <input class="input" type="text" id="fieldName" placeholder="John Doe" required>
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-user"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <label class="form-label">Email</label>
+                        <div class="control has-icons-left">
+                            <input class="input" type="email" id="fieldEmail" placeholder="you@company.com" required>
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-envelope"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Validation: #1 Problem -->
+                <div class="field mb-4">
+                    <label class="form-label">What is the #1 problem you hope this solves?</label>
+                    <div class="control has-icons-left">
+                        <input class="input" type="text" id="fieldProblem"
+                            placeholder="e.g. I keep running out of stock without knowing">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-bullseye"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Urgency: 1-10 -->
+                <div class="field mb-4">
+                    <label class="form-label">How urgently do you need this?</label>
+                    <div class="range-slider-container">
+                        <span id="urgencyOutput" class="slider-output">5 / 10</span>
+                        <input type="range" min="1" max="10" value="5" step="1" id="urgencyRange">
+                        <div class="is-flex is-justify-content-space-between is-size-7 has-text-grey mt-1">
+                            <span>Not urgent</span>
+                            <span>Need it now!</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Market Intel: Current Tool -->
+                <div class="field mb-4">
+                    <label class="form-label">What tool are you currently using for inventory?</label>
+                    <div class="control has-icons-left">
+                        <input class="input" type="text" id="fieldCurrentTool"
+                            placeholder="e.g. Excel, pen & paper, nothing...">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-tools"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Willingness to Pay -->
+                <div class="field mb-4">
+                    <label class="form-label">How much is this worth to you? (per month)</label>
+                    <div class="range-slider-container">
+                        <span id="priceOutput" class="slider-output">$10</span>
+                        <input type="range" min="0" max="100" value="10" step="1" id="priceRange">
+                        <div class="is-flex is-justify-content-space-between is-size-7 has-text-grey mt-1">
+                            <span>$0</span>
+                            <span>$100+</span>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="section-divider">
+
+                <!-- Commitment Options -->
+                <div class="field mb-4">
+                    <label class="form-label">How would you like to get involved? <span
+                            class="has-text-grey-light has-text-weight-normal">(optional)</span></label>
+
+                    <label class="commitment-option">
+                        <input type="checkbox" id="commitFounding">
+                        <div class="option-text">
+                            <strong><i class="fas fa-gem has-text-primary mr-1"></i> Founding Member ($10
+                                deposit)</strong>
+                            <span>Skip the line + lifetime discount</span>
+                        </div>
+                    </label>
+
+                    <label class="commitment-option">
+                        <input type="checkbox" id="commitReferral">
+                        <div class="option-text">
+                            <strong><i class="fas fa-share-nodes has-text-primary mr-1"></i> Invite Friends</strong>
+                            <span>Move up the waitlist by sharing your link</span>
+                        </div>
+                    </label>
+
+                    <label class="commitment-option">
+                        <input type="checkbox" id="commitResearch">
+                        <div class="option-text">
+                            <strong><i class="fas fa-headset has-text-primary mr-1"></i> 15-min Research Call</strong>
+                            <span>Share feedback &amp; earn early access</span>
+                        </div>
+                    </label>
+                </div>
+
+                <hr class="section-divider">
+
+                <!-- Quick Note -->
+                <div class="field mb-4">
+                    <label class="form-label">Quick Note <span
+                            class="has-text-grey-light has-text-weight-normal">(anything else we should
+                            know?)</span></label>
+                    <div class="control">
+                        <textarea class="textarea" id="fieldNote"
+                            placeholder="Why did you decide to join today? Any feature you can't live without?"></textarea>
+                    </div>
+                </div>
+
+                <input type="hidden" id="selectedPlan" name="plan">
+
+                <button type="submit" class="submit-btn mt-4">
+                    Join Waitlist <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </form>
+
+            <p class="has-text-centered mt-4 is-size-7 has-text-grey">
+                <a href="/" class="has-text-grey-light hover:text-primary">← Back to Home</a>
+            </p>
+        </div>
+
+        <!-- Success Message -->
+        <div id="successMessage" class="success-message">
+            <div class="icon-box mx-auto mb-4"
+                style="width: 80px; height: 80px; background: var(--primary-light); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto;">
+                <i class="fas fa-check fa-3x"></i>
+            </div>
+            <h2 class="title is-3 has-text-black">You're on the list!</h2>
+            <p class="subtitle is-6 has-text-grey">
+                Thanks for your interest. We'll be in touch soon when we open up more spots.
+            </p>
+            <a href="/" class="button is-primary is-outlined is-rounded mt-4">
+                Return Home
+            </a>
+        </div>
+    </div>
+
+    <!-- AOS Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+
+        // Price Slider
+        var priceSlider = document.getElementById("priceRange");
+        var priceOut = document.getElementById("priceOutput");
+        priceSlider.oninput = function () {
+            priceOut.innerHTML = "$" + this.value;
+        }
+
+        // Urgency Slider
+        var urgencySlider = document.getElementById("urgencyRange");
+        var urgencyOut = document.getElementById("urgencyOutput");
+        urgencySlider.oninput = function () {
+            urgencyOut.innerHTML = this.value + " / 10";
+        }
+
+        // URL Params for Plan Selection
+        var urlParams = new URLSearchParams(window.location.search);
+        var plan = urlParams.get('plan');
+        if (plan) {
+            document.getElementById('selectedPlan').value = plan;
+        }
+
+        // Form Submission
+        function submitForm(e) {
+            e.preventDefault();
+            var btn = document.querySelector('.submit-btn');
+            var originalText = btn.innerHTML;
+
+            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Saving...';
+            btn.style.opacity = '0.8';
+            btn.disabled = true;
+
+            var commitments = [];
+            if (document.getElementById('commitFounding').checked) commitments.push('founding_member');
+            if (document.getElementById('commitReferral').checked) commitments.push('referral');
+            if (document.getElementById('commitResearch').checked) commitments.push('research_call');
+
+            var payload = {
+                name: document.getElementById('fieldName').value,
+                email: document.getElementById('fieldEmail').value,
+                plan: document.getElementById('selectedPlan').value,
+                problem: document.getElementById('fieldProblem').value,
+                urgency: urgencySlider.value + "/10",
+                current_tool: document.getElementById('fieldCurrentTool').value,
+                willing_to_pay: "$" + priceSlider.value,
+                commitments: commitments,
+                note: document.getElementById('fieldNote').value
+            };
+
+            fetch('/waitlist', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+                .then(function (response) {
+                    return response.json().then(function (data) {
+                        if (!response.ok) {
+                            throw new Error(data.error || 'Something went wrong');
+                        }
+                        return data;
+                    });
+                })
+                .then(function (data) {
+                    document.getElementById('waitlistForm').style.display = 'none';
+                    document.getElementById('successMessage').style.display = 'block';
+                })
+                .catch(function (err) {
+                    btn.innerHTML = originalText;
+                    btn.style.opacity = '1';
+                    btn.disabled = false;
+                    alert('Error: ' + err.message);
+                });
+        }
+    </script>
+</body>
+
+</html>
