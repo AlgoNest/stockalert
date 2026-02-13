@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - StockAlert</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        .dashboard-container {
+            background-color: #ffffff;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background-color: #ffffff;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .stat-card {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            height: 100%;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+        }
+
+        .table-container {
+            padding: 0 2rem 2rem;
+        }
+
+        .table {
+            background-color: transparent;
+            color: #334155;
+            width: 100%;
+        }
+
+        .table th {
+            color: #64748b;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .table td {
+            border-bottom: 1px solid #f1f5f9;
+            vertical-align: middle;
+            color: #1e293b;
+        }
+
+        .table tr:hover {
+            background-color: #f8fafc;
+        }
+
+        .tag.is-soft-success {
+            background-color: #ecfdf5;
+            color: #059669;
+        }
+
+        .tag.is-soft-warning {
+            background-color: #fffbeb;
+            color: #d97706;
+        }
+
+        .tag.is-soft-danger {
+            background-color: #fef2f2;
+            color: #dc2626;
+        }
+
+        .product-icon {
+            width: 32px;
+            height: 32px;
+            background: #f1f5f9;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.75rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <div class="header">
+            <h1 class="title is-5 has-text-black mb-0">
+                <span class="has-text-primary">📦</span> STOCKALERT
+            </h1>
+            <div class="buttons">
+                <button class="button is-ghost has-text-grey is-rounded"><i class="fas fa-bell"></i></button>
+                <button class="button is-primary is-rounded is-small">
+                    <span class="icon is-small"><i class="fas fa-plus"></i></span>
+                    <span>Add Product</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="section pt-5 pb-5">
+            <div class="columns">
+                <div class="column">
+                    <div class="stat-card">
+                        <p class="heading has-text-grey">Total Stock</p>
+                        <p class="title is-3 has-text-primary">1,248</p>
+                        <p class="is-size-7 has-text-success"><i class="fas fa-arrow-up"></i> 12% vs last week</p>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="stat-card">
+                        <p class="heading has-text-grey">Low Stock</p>
+                        <p class="title is-3 has-text-warning">5</p>
+                        <p class="is-size-7 has-text-grey">Needs attention</p>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="stat-card">
+                        <p class="heading has-text-grey">Critical</p>
+                        <p class="title is-3 has-text-danger">3</p>
+                        <p class="is-size-7 has-text-danger">Restock immediately</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Inventory Table -->
+        <div class="table-container">
+            <div class="level mb-4">
+                <div class="level-left">
+                    <h2 class="title is-4 has-text-black">Inventory Overview</h2>
+                </div>
+                <div class="level-right">
+                    <div class="field">
+                        <p class="control has-icons-left">
+                            <input class="input is-rounded is-small" type="text" placeholder="Search..."
+                                style="background: #f8fafc; border-color: #e2e8f0; color: #1e293b;">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-search has-text-grey-light"></i>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <table class="table is-fullwidth">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Stock Level</th>
+                        <th>Min. Threshold</th>
+                        <th>Status</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="is-flex is-align-items-center">
+                                <div class="product-icon">🥤</div>
+                                <span class="has-text-weight-medium">Coca Cola 500ml</span>
+                            </div>
+                        </td>
+                        <td><strong class="has-text-grey-dark">15</strong> units</td>
+                        <td>10 units</td>
+                        <td><span class="tag is-soft-warning is-rounded">Low Stock</span></td>
+                        <td class="has-text-right"><button class="button is-small is-ghost has-text-grey">Edit</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="is-flex is-align-items-center">
+                                <div class="product-icon">🍞</div>
+                                <span class="has-text-weight-medium">Bread Loaf</span>
+                            </div>
+                        </td>
+                        <td><strong class="has-text-grey-dark">8</strong> units</td>
+                        <td>10 units</td>
+                        <td><span class="tag is-soft-warning is-rounded">Low Stock</span></td>
+                        <td class="has-text-right"><button class="button is-small is-ghost has-text-grey">Edit</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="is-flex is-align-items-center">
+                                <div class="product-icon">🛢️</div>
+                                <span class="has-text-weight-medium">Cooking Oil 5L</span>
+                            </div>
+                        </td>
+                        <td><strong class="has-text-grey-dark">3</strong> units</td>
+                        <td>8 units</td>
+                        <td><span class="tag is-soft-danger is-rounded">Critical</span></td>
+                        <td class="has-text-right"><button class="button is-small is-ghost has-text-grey">Edit</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="is-flex is-align-items-center">
+                                <div class="product-icon">🧂</div>
+                                <span class="has-text-weight-medium">Sugar 1kg</span>
+                            </div>
+                        </td>
+                        <td><strong class="has-text-grey-dark">45</strong> units</td>
+                        <td>15 units</td>
+                        <td><span class="tag is-soft-success is-rounded">In Stock</span></td>
+                        <td class="has-text-right"><button class="button is-small is-ghost has-text-grey">Edit</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
